@@ -27,6 +27,8 @@ const Slider = () => {
             <h3 className="text-center font-serif text-base text-black mt-6">URL Shortener</h3>
           </div>
 
+          
+
           {/* QR Code Card */}
           <div className="h-[300px] w-[300px] bg-gray-100 p-4 shadow-xl rounded-xl hover:scale-105 transform transition duration-300">
             <Link to="/qr">

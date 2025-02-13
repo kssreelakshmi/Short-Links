@@ -7,7 +7,7 @@ import Listing from '../../components/User/listing.jsx'
 const Home = () => {
   return (
     <>
-    <div className='relative z-10 top-0'>
+    <div className='relative z-10 top-10'>
       <Banner />
       <div className=' mt-1'>
         <div className=' bg-pink-100 flex'>

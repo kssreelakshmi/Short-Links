@@ -1,22 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
+const initialState = { 
+  name: null,
+  profile_pic : null,  
+  isAuthenticated: false, 
+  isAdmin: false,
+}
 
-const todosSlice = createSlice({
-  name: 'todos',
-  initialState: [],
+const  UserSlice= createSlice({
+  name: 'user_authentication',
+  initialState,
   reducers: {
-    todoAdded(state, action) {
-      state.push({
-        id: action.payload.id,
-        text: action.payload.text,
-        completed: false,
-      })
-    },
-    todoToggled(state, action) {
-      const todo = state.find((todo) => todo.id === action.payload)
-      todo.completed = !todo.completed
+    set_user_authentication: (state, action) => {
+      state.name = action.payload.name
+      state.profile_pic = action.payload.profile_pic
+      state.isAuthenticated = action.payload.isAuthenticated;
+      state.isAdmin = action.payload.isAdmin;
     },
   },
 })
 
-export const { todoAdded, todoToggled } = todosSlice.actions
-export default todosSlice.reducer
+export const { set_user_authentication} = UserSlice.actions
+export default UserSlice.reducer
