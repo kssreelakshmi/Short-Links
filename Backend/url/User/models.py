@@ -38,7 +38,7 @@ class Account(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=60, unique=True)
     phone_number = models.CharField(max_length=15, unique=True)
-    profile_image = models.ImageField(upload_to='profile_image/', null=True, blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pic/', null=True, blank=True)
 
 
     # required fields
