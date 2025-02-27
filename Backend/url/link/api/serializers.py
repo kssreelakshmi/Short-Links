@@ -1,4 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
+from link.models import URL_Shortener
 
-User = get_user_model()
+
+class URLShortenerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = URL_Shortener
+        fields = ['id', 'user', 'long_url', 'short_url', 'shortening_type', 'created_at']
+        read_only_fields = ['short_url', 'created_at', 'expiry_at']
