@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserSignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = USER
-        exclude = ['profile_pic','groups','user_permissions']
+        exclude = ('profile_pic','groups','user_permissions',)
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

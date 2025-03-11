@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import login from '../../assets/login.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import axios from 'axios';
 import {jwtDecode} from "jwt-decode"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BiSolidShow, BiSolidHide } from "react-icons/bi";
-import { set_user_authentication } from '../../redux/user/userSlice';
+import { set_user_authentication } from '../../redux/user/UserSlice.jsx';
 
 const Login = () => {
-  const [values, setValues] = useState({ email: '', password: '' });
+  const [values, setValues] = useState({ 
+    email: '', 
+    password: '' });
+  const user_authentication = useSelector((state)=>state.user_authentication);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const baseURL = 'http://localhost:8000';
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,17 +32,24 @@ const Login = () => {
       toast.error("Please enter both email and password.");
       return;
     }
+    const formData = new FormData();
+    formData.append("email", values.email);
+    formData.append("password", values.password);
 
     try {
-      const response = await axios.post(`${baseURL}/api/user/login/`, values, {
+      console.log('there',values)
+      const response = await axios.post(`${baseURL}/api/user/login/`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
+      console.log(response.data)
       if (response.status === 200) {
+        console.log('here')
         localStorage.setItem("access", response.data.access);
         localStorage.setItem("refresh", response.data.refresh);
+        
         dispatch(
           set_user_authentication({
             name:jwtDecode(response.data.access).username,
@@ -47,9 +62,11 @@ const Login = () => {
           navigate('/', { state: response.data.Message });
         }, 2000);
       } else {
+        console.log('where')
         toast.error("Something went wrong. Please try again.");
       }
     } catch (error) {
+      console.log('were')
       console.log(error);
       if (error.response) {
         if (error.response.status === 406) {
@@ -61,10 +78,7 @@ const Login = () => {
     }
   };
 
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 p-6">
       <div className="w-full max-w-4xl bg-white p-8 shadow-lg rounded-xl grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from "react-redux";
 import UserWrapper from './components/User/UserWrapper';
-// import AdminWrapper from './components/Admin/AdminWrapper';
-import {userStore} from './redux/userStore'
+import AdminWrapper from './components/Admin/AdminWrapper';
+import {userStore} from './redux/userStore.jsx'
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
       <Provider store={userStore}>
       <Routes>
       <Route path="/*" element={<UserWrapper />} />
-      {/* <Route path="/admin/*" element={<AdminWrapper />} /> */}
+      <Route path="/admin/*" element={<AdminWrapper />} />
       </Routes>
       </Provider>
     </Router>

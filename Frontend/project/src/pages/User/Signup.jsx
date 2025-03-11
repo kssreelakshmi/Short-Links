@@ -55,14 +55,6 @@ const Signup = () => {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formValidation()) return;
@@ -95,10 +87,18 @@ const Signup = () => {
           setErrors(error.response.data);
           toast.error(error.response.data.error || "Invalid input data");
         } else {
+          console.log(error);
           toast.error("Server error. Please try again later.");
         }
       }
     }
+  };
+
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (

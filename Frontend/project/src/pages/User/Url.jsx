@@ -8,7 +8,7 @@ const Url = () => {
         <div className='font-mono text-4xl font-extrabold text-blue-800 text-center mt-12'>
           <h1>URL Shortener</h1>
         </div>
-        <div className='font-serif text-lg text-gray-700 text-center mt-6 mx-8'>
+        <div className='font-serif text-lg text-gray-700 text-center mt-12 mx-8'>
           <p>
             Easily shorten your long URLs into compact links for quick sharing!
             <br />

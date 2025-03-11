@@ -43,9 +43,11 @@ class GetAccountRoutes(APIView):
 
 class UserSignupView(APIView):
     def post(self, request):
+        print('here')
         serializer = UserSignupSerializer(data=request.data)
         print(request.data)
         if serializer.is_valid():
+            print('20')
             serializer.save()
         else:
             return Response(serializer.errors,status=status.HTTP_406_NOT_ACCEPTABLE)
@@ -59,18 +61,29 @@ class UserSignupView(APIView):
 
 class UserLoginView(APIView):
    def post(self, request):
+        print(request.data)
+        print('1')
         try:
-           email = request.data['email']
-           password = request.data['password']
+            print('2')
+            email = request.data['email']
+            password = request.data['password']
+
         except KeyError:
+            print('3')
             raise ParseError('All fields must be filled')
+        
         if email == '' or password == '':
             return Response({'error': 'Please fill all fields'}, status=status.HTTP_406_NOT_ACCEPTABLE)   
+        
         if not USER.objects.filter(email=email).exists():
             raise AuthenticationFailed('User not found')
+        if not USER.objects.filter(email=email,is_active=True).exists():
+            raise AuthenticationFailed('User is not active')
+        
         user = authenticate(request,email=email, password=password) 
         if user is None:
             raise AuthenticationFailed('Invalid credentials')
+        
         refresh = RefreshToken.for_user(user)
         refresh['username'] = str(user.username)
 

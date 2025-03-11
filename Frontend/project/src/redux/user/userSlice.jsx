@@ -19,5 +19,5 @@ const  UserSlice= createSlice({
   },
 })
 
-export const { set_user_authentication} = UserSlice.actions
+export const { set_user_authentication } = UserSlice.actions
 export default UserSlice.reducer

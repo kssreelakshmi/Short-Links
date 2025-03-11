@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Navigate } from 'react-router-dom'
 import isAuthUser from '../utils/isAuthUser'
 
-function UserPrivateRoute(){
+function UserPrivateRoute({children}){
     const [isAuthenticated,setIsAuthenticated] =useState(false);
     const [isLoading,setIsLoading ] = useState(true);
 
